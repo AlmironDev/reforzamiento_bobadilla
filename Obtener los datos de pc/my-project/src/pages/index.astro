@@ -1,0 +1,38 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import Tabla2 from "../components/tablas/tabla2.astro";
+import Tabla3 from "../components/tablas/tabla3.astro";
+import Tabla4 from "../components/tablas/tabla4.astro";
+
+console.log("GHolasdasd");
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <div class="grid grid-cols-5 grid-rows-5 gap-4">
+      <div class="row-span-5">1</div>
+      <div class="col-span-2 row-span-3">
+        <Tabla2 />
+      </div>
+      <div class="col-span-2 row-span-3 col-start-4">
+        <Tabla3 />
+      </div>
+      <div class="col-span-2 row-span-2 col-start-2 row-start-4">
+        <Tabla4 />
+      </div>
+      <div class="col-span-2 row-span-2 col-start-4 row-start-4">5</div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    margin: auto;
+    padding: 1rem;
+    max-width: calc(100% - 2rem);
+    color: white;
+    font-size: 20px;
+    line-height: 1.6;
+  }
+</style>

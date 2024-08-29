@@ -1,0 +1,115 @@
+---
+import { fetchSystemInfo } from "../../api/apitabla2";
+
+const nfoSystem = await fetchSystemInfo();
+---
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr>
+        <th scope="col" class="px-6 py-3">Category</th>
+        <th scope="col" class="px-6 py-3">Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      {nfoSystem ? (
+        <>
+          <!-- CPU Info -->
+          <tr>
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800"
+            >
+              CPU Info
+            </th>
+            <td class="px-6 py-4">
+              <ul>
+                {nfoSystem.cpu_info.map((cpu: number) => (
+                  <li>{cpu}%</li>
+                ))}
+              </ul>
+            </td>
+          </tr>
+          <!-- Memory Info -->
+          <tr>
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800"
+            >
+              Memory Info
+            </th>
+            <td class="px-6 py-4">
+              <ul>
+                <li>Total: {nfoSystem.memory_info.total} bytes</li>
+                <li>Available: {nfoSystem.memory_info.available} bytes</li>
+                <li>Used: {nfoSystem.memory_info.used} bytes</li>
+                <li>Free: {nfoSystem.memory_info.free} bytes</li>
+                <li>Percent Used: {nfoSystem.memory_info.percent}%</li>
+              </ul>
+            </td>
+          </tr>
+          <!-- Disk Info -->
+          <tr>
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800"
+            >
+              Disk Info
+            </th>
+            <td class="px-6 py-4">
+              <ul>
+                <li>Total: {nfoSystem.disk_info.total} bytes</li>
+                <li>Used: {nfoSystem.disk_info.used} bytes</li>
+                <li>Free: {nfoSystem.disk_info.free} bytes</li>
+                <li>Percent Used: {nfoSystem.disk_info.percent}%</li>
+              </ul>
+            </td>
+          </tr>
+          <!-- Network Info -->
+          <tr>
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800"
+            >
+              Network Info
+            </th>
+            <td class="px-6 py-4">
+              <ul>
+                <li>Bytes Sent: {nfoSystem.net_info.bytes_sent}</li>
+                <li>Bytes Received: {nfoSystem.net_info.bytes_recv}</li>
+              </ul>
+            </td>
+          </tr>
+          <!-- Process Info -->
+          <tr>
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800"
+            >
+              Process Info
+            </th>
+            <td class="px-6 py-4">
+              <ul>
+                {nfoSystem.process_info.map((process) => (
+                  <li >
+                    PID: {process.pid}, Name: {process.name}, CPU: {process.cpu_percent}%,
+                    Memory: {process.memory_info.rss} bytes
+                  </li>
+                ))}
+              </ul>
+            </td>
+          </tr>
+        </>
+      ) : (
+        <tr>
+          <td colspan="2" class="px-6 py-4 text-center">
+            Error: Could not fetch system information.
+          </td>
+        </tr>
+      )}
+    </tbody>
+  </table>
+</div>
